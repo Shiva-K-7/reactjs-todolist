@@ -1,14 +1,19 @@
 import TodoList from "./components/TodoList.jsx";
 import TodoInput from "./components/TodoInput.jsx";
-import {useEffect, useState} from "react";
+import { useEffect, useState} from "react";
 
 function App() {
 
-    const [todos, setTodos] = useState([])
+    const [todos, setTodos] = useState(['first todo', 'second todo', 'third tood'])
     const [todoValue, setTodoValue] = useState('')
+    const [inputValue, setInputValue] = useState('')
 
     function persistData(newList) {
         localStorage.setItem('todos', JSON.stringify({todos: newList}))
+    }
+
+    function handleInput(newInput){
+        setInputValue(newInput)
     }
 
     function handleAddTodos(newTodo) {
@@ -43,13 +48,13 @@ function App() {
         setTodos(localTodos)
     }, [])
 
-return (
-    <>
-        <main></main>
-        <TodoInput todoValue={todoValue} setTodoValue={setTodoValue} handleAddTodos={handleAddTodos}/>
-        <TodoList handleEditTodos={handleEditTodos} handleDeleteTodos={handleDeleteTodos} todos={todos}/>
-    </>
-)
+    return (
+        <>
+            <main></main>
+            <TodoInput todoValue={todoValue} setTodoValue={setTodoValue} handleAddTodos={handleAddTodos} inputValue={inputValue} setInputValue={setInputValue} handleInput={handleInput}/>
+            <TodoList handleEditTodos={handleEditTodos} handleDeleteTodos={handleDeleteTodos} todos={todos}/>
+        </>
+    )
 }
 
 export default App
